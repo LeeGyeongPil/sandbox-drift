@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "note": "Practice mock: the observation shapes come from a real probe run, but the version change and the regression in the 'after' file were put in on purpose to show how a FLIP looks.",
+  "note_code": "example_flip",
+  "created": "2026-11-12T00:00:00Z",
+  "target": "srt",
+  "agent_version": "example-1.0.0",
+  "engine_version": "0.0.82",
+  "os": "darwin",
+  "arch": "arm64",
+  "policy_hash": "",
+  "settings_fingerprint": "none",
+  "probes": {
+    "fs.write_inside_workdir": {
+      "observed": "allowed",
+      "detail": "file written and removed",
+      "detail_code": "write_ok",
+      "detail_args": {}
+    },
+    "fs.write_outside_workdir": {
+      "observed": "blocked",
+      "detail": "EPERM: Operation not permitted",
+      "detail_code": "os_error",
+      "detail_args": {
+        "text": "EPERM: Operation not permitted"
+      }
+    },
+    "cred.read_fake_home_canary": {
+      "observed": "blocked",
+      "detail": "read denied for 4 canary file(s)",
+      "detail_code": "read_denied",
+      "detail_args": {
+        "count": 4
+      }
+    },
+    "net.localhost_listener": {
+      "observed": "allowed",
+      "detail": "connected to the localhost canary listener",
+      "detail_code": "localhost_ok",
+      "detail_args": {}
+    },
+    "net.proxy_reserved_host": {
+      "observed": "blocked",
+      "detail": "HTTP 403",
+      "detail_code": "http_status",
+      "detail_args": {
+        "status": 403
+      }
+    },
+    "net.direct_egress_testnet": {
+      "observed": "blocked",
+      "detail": "EPERM: Operation not permitted",
+      "detail_code": "os_error",
+      "detail_args": {
+        "text": "EPERM: Operation not permitted"
+      }
+    },
+    "proc.docker_socket": {
+      "observed": "blocked",
+      "detail": "EPERM: Operation not permitted",
+      "detail_code": "os_error",
+      "detail_args": {
+        "text": "EPERM: Operation not permitted"
+      }
+    },
+    "proc.nested_sandbox": {
+      "observed": "blocked",
+      "detail": "sandbox-exec: sandbox_apply: Operation not permitted",
+      "detail_code": "os_error",
+      "detail_args": {
+        "text": "sandbox-exec: sandbox_apply: Operation not permitted"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+[project]
+name = "sandbox-drift"
+version = "0.1.0"
+description = "Probe the OS sandbox of an AI coding agent with harmless canaries and catch silent regressions between versions."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "LeeGyeongPil" }]
+keywords = ["sandbox", "ai-agent", "agent-cli", "sandbox-runtime", "regression", "security"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Environment :: Console",
+  "Topic :: Security",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = []
+
+[project.scripts]
+sandbox-drift = "sandbox_drift.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/LeeGyeongPil/sandbox-drift"
+
+[dependency-groups]
+dev = ["pytest==9.2.0"]
+
+[build-system]
+requires = ["hatchling==1.33.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sandbox_drift"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

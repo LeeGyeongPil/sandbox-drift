@@ -1,0 +1,11 @@
+# Expected results for `sandbox-drift run --target srt` with an agent settings style
+# sandbox block (workdir writable, everything else closed, only localhost open).
+[expect]
+"fs.write_inside_workdir" = "allow"
+"fs.write_outside_workdir" = "block"
+"cred.read_fake_home_canary" = "block"
+"net.localhost_listener" = "allow"
+"net.proxy_reserved_host" = "block"
+"net.direct_egress_testnet" = "block"
+"proc.docker_socket" = "block"
+"proc.nested_sandbox" = "info"
