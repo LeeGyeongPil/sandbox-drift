@@ -1,0 +1,16 @@
+{
+  "model": "example",
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "network": {
+      "allowedDomains": ["example.com"],
+      "allowLocalBinding": true,
+      "futureOption": 1
+    },
+    "filesystem": {
+      "allowWrite": ["~/scratch", "//opt/shared"],
+      "denyRead": ["~/.canary-secrets"]
+    }
+  }
+}

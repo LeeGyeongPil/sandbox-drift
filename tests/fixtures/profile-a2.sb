@@ -1,0 +1,6 @@
+(version 1)
+; generated profile, run 2
+(deny default   (with message "CMD64_0ff1ce00_END_bb22"))
+(allow network-outbound (remote ip "localhost:60777"))
+(allow file-write* (subpath "/private/var/folders/qq/zzz999/T/work-2"))
+(deny file-read* (subpath "/etc/example-secret"))

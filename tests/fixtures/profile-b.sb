@@ -1,0 +1,6 @@
+(version 1)
+; generated profile, run 3 (one rule differs)
+(deny default (with message "CMD64_00000000_END_cc33"))
+(allow network-outbound (remote ip "localhost:51234"))
+(allow file-write* (subpath "/private/var/folders/xy/abc123/T/work-1"))
+(allow file-read* (subpath "/etc/example-secret"))
