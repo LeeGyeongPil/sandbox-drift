@@ -61,10 +61,12 @@ sandbox-drift --version
 에이전트에게 자기 셸에서 이 명령을 실행시키세요. 그러면 에이전트가 실제로 쓰는 샌드박스 안에서 프로브가 돕니다.
 
 ```bash
-uv run sandbox-drift self --policy examples/policies/self-basic.toml --baseline .sandbox-drift/ --lang ko
+uv run sandbox-drift self --policy examples/policies/self-basic.toml --baseline .sandbox-drift/ --agent-version "<에이전트 CLI 의 --version 출력>" --lang ko
 ```
 
-에이전트 샌드박스 안에서 돌리면 표가 이렇게 나옵니다(macOS 에서 측정, 2026-11-12). 영어 화면과 같은 값이며 `--lang ko` 에서는 머리글·상세 안내 문구가 한국어입니다(`--lang ko` 로 실행한 출력).
+`--agent-version`(또는 환경 변수 `SANDBOX_DRIFT_AGENT_VERSION`)으로 어떤 에이전트 버전에서 측정했는지 기록하세요. 주지 않으면 스냅샷에 `agent=unknown` 으로 남아, 나중에 FLIP 이 나도 어느 에이전트 업그레이드에서 생겼는지 알려 주는 `agent_version: A -> B` 줄이 보고서에 나오지 않습니다. 에이전트를 업데이트할 때마다 같은 기준선 폴더로 같은 명령을 다시 실행하세요. 각 실행은 처음 저장한 기준선과 비교됩니다. 새 기준선을 시작하려면(예: 버전 없이 저장한 경우) `--update-baseline` 을 한 번 붙이거나 새 폴더를 쓰세요.
+
+에이전트 샌드박스 안에서 돌리면 표가 이렇게 나옵니다(macOS 에서 측정, 2026-11-12, `--agent-version` 없이 측정해서 `agent=unknown`). 영어 화면과 같은 값이며 `--lang ko` 에서는 머리글·상세 안내 문구가 한국어입니다(`--lang ko` 로 실행한 출력).
 
 ```
 sandbox-drift 보고서
@@ -206,7 +208,7 @@ uv run sandbox-drift init --preset claude-srt
 
 ## 스냅샷과 비교
 
-`--baseline DIR` 를 주면 첫 실행은 스냅샷을 저장하고, 이후 실행은 그것과 비교합니다. 스냅샷에는 `target`, `agent_version`, `engine_version`, `os`, `arch`, `policy_hash`, `settings_fingerprint` 가 기록됩니다. 연습용 목을 두 번 돌려 보면 알 수 있습니다.
+`--baseline DIR` 를 주면 첫 실행은 스냅샷을 저장하고, 이후 실행은 그것과 비교합니다. 스냅샷에는 `target`, `agent_version`(`--agent-version` 또는 `SANDBOX_DRIFT_AGENT_VERSION` 으로 채움), `engine_version`, `os`, `arch`, `policy_hash`, `settings_fingerprint` 가 기록됩니다. 연습용 목을 두 번 돌려 보면 알 수 있습니다.
 
 ```bash
 uv run sandbox-drift run --target replay --replay examples/replay/before.json --policy examples/policies/claude-srt.toml --baseline .sandbox-drift/
@@ -343,7 +345,7 @@ OS 오류 원문(`EPERM: Operation not permitted`, `HTTP 403`, `sandbox-exec` st
 - docker 소켓 프로브는 `connect` 만 호출합니다.
 - `examples/replay/` 는 연습용 목이고, 그것으로 낸 모든 보고서가 그렇게 밝힙니다.
 - `fs.write_outside_workdir` 는 실제 HOME(또는 `--outside-dir` 폴더)에 무작위 이름의 파일을 잠깐 쓰고 지웁니다. 샌드박스 안에서 돌려야 막히는 것을 볼 수 있습니다.
-- 테스트: `uv run pytest -q`(105개, 프록시가 설정돼 있을 때 예약 도메인 `canary.invalid` 로 가는 요청 외에는 외부 트래픽 없음).
+- 테스트: `uv run pytest -q`(106개, 프록시가 설정돼 있을 때 예약 도메인 `canary.invalid` 로 가는 요청 외에는 외부 트래픽 없음).
 
 ## 라이선스
 

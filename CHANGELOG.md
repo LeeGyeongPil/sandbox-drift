@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-14
+
+### Documentation
+- README (English and Korean): the real-sandbox example now passes `--agent-version` (or `SANDBOX_DRIFT_AGENT_VERSION`) so baselines record the agent version and FLIP reports show `agent_version: A -> B`.
+
 ## [0.1.0] - 2026-11-12
 
 ### Added

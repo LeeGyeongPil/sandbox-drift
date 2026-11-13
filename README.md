@@ -61,10 +61,12 @@ sandbox-drift --version
 Ask the agent to run this in its own shell, so the probes run inside the sandbox the agent really uses:
 
 ```bash
-uv run sandbox-drift self --policy examples/policies/self-basic.toml --baseline .sandbox-drift/ --lang en
+uv run sandbox-drift self --policy examples/policies/self-basic.toml --baseline .sandbox-drift/ --agent-version "<output of your agent CLI --version>" --lang en
 ```
 
-Run inside an agent sandbox, the table looks like this (measured on macOS, 2026-11-12):
+Pass `--agent-version` (or set the `SANDBOX_DRIFT_AGENT_VERSION` environment variable) to record which agent version took the measurement. Without it the snapshot stores `agent=unknown`, so when a FLIP shows up later the report cannot print the `agent_version: A -> B` line that tells you which agent upgrade caused it. Re-run the same command with the same baseline folder after every agent update. Each run is compared with the baseline saved first; to start a new baseline (for example after the first one was saved without a version), add `--update-baseline` once or use a new folder.
+
+Run inside an agent sandbox, the table looks like this (measured on macOS, 2026-11-12, without `--agent-version`, hence `agent=unknown`):
 
 ```
 sandbox-drift report
@@ -206,7 +208,7 @@ Presets: `self-basic` and `claude-srt` (also in `examples/policies/`). Use `--ou
 
 ## Snapshots & diff
 
-With `--baseline DIR` the first run saves a snapshot, and later runs compare against it. Each snapshot records `target`, `agent_version`, `engine_version`, `os`, `arch`, `policy_hash` and `settings_fingerprint`. Running the practice mock twice shows it:
+With `--baseline DIR` the first run saves a snapshot, and later runs compare against it. Each snapshot records `target`, `agent_version` (filled from `--agent-version` or `SANDBOX_DRIFT_AGENT_VERSION`), `engine_version`, `os`, `arch`, `policy_hash` and `settings_fingerprint`. Running the practice mock twice shows it:
 
 ```bash
 uv run sandbox-drift run --target replay --replay examples/replay/before.json --policy examples/policies/claude-srt.toml --baseline .sandbox-drift/
@@ -343,7 +345,7 @@ OS error text (`EPERM: Operation not permitted`, `HTTP 403`, `sandbox-exec` stde
 - The docker socket probe only calls `connect`.
 - `examples/replay/` is a practice mock, and every report from it says so.
 - `fs.write_outside_workdir` writes a randomly named file in your real HOME (or the `--outside-dir` directory) for a moment and deletes it. Run it inside a sandbox to see it blocked.
-- Tests: `uv run pytest -q` (105 tests; no outbound traffic except the reserved `canary.invalid` request through a proxy, if one is set).
+- Tests: `uv run pytest -q` (106 tests; no outbound traffic except the reserved `canary.invalid` request through a proxy, if one is set).
 
 ## License
 
