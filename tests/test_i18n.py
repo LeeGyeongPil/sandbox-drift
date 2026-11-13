@@ -304,3 +304,11 @@ def test_self_mode_ko_has_no_english_detail_text(cli, fast_args):
         if code in ("os_error", "http_status", "connected", "canary_readable"):
             continue
         assert text not in stdout, code
+
+
+def test_package_version_matches_metadata():
+    from importlib.metadata import version
+
+    import sandbox_drift
+
+    assert sandbox_drift.__version__ == version("sandbox-drift")
