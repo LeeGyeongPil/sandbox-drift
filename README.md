@@ -345,7 +345,7 @@ OS error text (`EPERM: Operation not permitted`, `HTTP 403`, `sandbox-exec` stde
 - The docker socket probe only calls `connect`.
 - `examples/replay/` is a practice mock, and every report from it says so.
 - `fs.write_outside_workdir` writes a randomly named file in your real HOME (or the `--outside-dir` directory) for a moment and deletes it. Run it inside a sandbox to see it blocked.
-- Tests: `uv run pytest -q` (106 tests; no outbound traffic except the reserved `canary.invalid` request through a proxy, if one is set).
+- Tests: `uv run pytest -q` (107 tests; no outbound traffic except the reserved `canary.invalid` request through a proxy, if one is set).
 
 ## License
 

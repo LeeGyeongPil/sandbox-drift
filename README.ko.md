@@ -345,7 +345,7 @@ OS 오류 원문(`EPERM: Operation not permitted`, `HTTP 403`, `sandbox-exec` st
 - docker 소켓 프로브는 `connect` 만 호출합니다.
 - `examples/replay/` 는 연습용 목이고, 그것으로 낸 모든 보고서가 그렇게 밝힙니다.
 - `fs.write_outside_workdir` 는 실제 HOME(또는 `--outside-dir` 폴더)에 무작위 이름의 파일을 잠깐 쓰고 지웁니다. 샌드박스 안에서 돌려야 막히는 것을 볼 수 있습니다.
-- 테스트: `uv run pytest -q`(106개, 프록시가 설정돼 있을 때 예약 도메인 `canary.invalid` 로 가는 요청 외에는 외부 트래픽 없음).
+- 테스트: `uv run pytest -q`(107개, 프록시가 설정돼 있을 때 예약 도메인 `canary.invalid` 로 가는 요청 외에는 외부 트래픽 없음).
 
 ## 라이선스
 

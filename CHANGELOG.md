@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-23
+
+### Fixed
+- The proxy probe now closes the `HTTPError` response, removing a `ResourceWarning` that failed `python -W error -m pytest`.
+
 ## [0.1.1] - 2026-11-14
 
 ### Documentation
