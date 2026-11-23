@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-11-23
+
+### Tests
+- Added a regression test that the proxy probe closes the `HTTPError` response.
+
 ## [0.1.2] - 2026-11-23
 
 ### Fixed
