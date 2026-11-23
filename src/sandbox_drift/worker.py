@@ -168,6 +168,7 @@ def probe_proxy_reserved_host(config, scrub):
         with urllib.request.urlopen(RESERVED_URL, timeout=config.get("timeout", 2) + 3) as response:
             status = response.status
     except urllib.error.HTTPError as exc:
+        exc.close()  # release the response so no ResourceWarning is emitted
         return classify_http(exc.code), _d("http_status", status=exc.code)
     except Exception as exc:  # noqa: BLE001 - any failure here is just "cannot tell"
         return ERROR, _os(exc, scrub)
